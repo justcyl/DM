@@ -1,0 +1,982 @@
+\documentclass[b4paper,12pt,oneside,article]{memoir}
+\setlrmarginsandblock{3cm}{*}{1}
+\setulmarginsandblock{3cm}{*}{1}
+\setheadfoot{2cm}{\footskip}          
+\checkandfixthelayout[nearest]
+
+
+\setlength{\parindent}{0pt}
+
+\usepackage[utf8]{inputenc} % 显示中文
+\usepackage{fancyhdr} % 导入fancyhdr包李爽
+\usepackage{amsmath, amssymb, bm, mathtools, mathdots}
+
+\pagestyle{fancy}
+% 页眉设置
+\fancyhf{}
+\fancyhead[L]{Yilin Chen}
+\fancyhead[R]{\today}
+\fancyhead[C]{\rightmark}
+% 页脚设置F8
+\fancyfoot[L]{Powered by \LaTeX}
+\fancyfoot[C]{\thepage} % 页码
+\fancyfoot[R]{DM Homework Assignment}
+\renewcommand{\headrulewidth}{4pt} % 分隔线宽度4磅
+\renewcommand{\footrulewidth}{2pt}
+
+\usepackage{newtxtext}
+\usepackage{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+% \usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+%\usepackage{framed} % 实现方框效果
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{shortlst}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{caption}
+\setcounter{secnumdepth}{0}
+
+ %-------------------------
+ \usepackage{tabularx}
+
+ \newcounter{proofstep}
+ \newcommand{\step}{}
+ \newenvironment{proof}
+   {\par
+	\setcounter{proofstep}{0}%
+	\renewcommand{\step}{\refstepcounter{proofstep}\theproofstep. &}%
+	\noindent
+	\begin{tabular}{ @{} r c l @{}}}
+   {\end{tabular}}
+ %-------------------------
+
+\definecolor{formalshade}{rgb}{0.95,0.95,1} % 文本框颜色
+\definecolor{greenshade}{rgb}{0.90,0.99,0.91} % 绿色文本框，竖线颜色设为 Green
+\definecolor{redshade}{rgb}{1.00,0.90,0.90}% 红色文本框，竖线颜色设为 LightCoral
+\definecolor{brownshade}{rgb}{0.99,0.97,0.93} % 莫兰迪棕色，竖线颜色设为 BurlyWood
+
+\newenvironment{formal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{DarkBlue}\vrule width 2pt}%
+{\color{formalshade}\vrule width 4pt}%
+\colorbox{formalshade}%
+}%
+
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}
+\begin{adjustwidth}{}{7pt}%
+\vspace{2pt}\vspace{2pt}%
+}
+{%
+\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\usepackage[framemethod=TikZ]{mdframed}
+
+\newcounter{Sol}[section]
+\renewcommand{\theSol}{\arabic{section}.\arabic{Sol}}
+\newenvironment{Sol}[1][]{
+	\refstepcounter{Sol}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=blue!20]
+			{\strut Solution~\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=blue!20,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+
+\begin{document}
+\chapter*{Chapter 9 Relations}
+\section{9.1 Relations and Their Properties}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 1}]
+	List the ordered pairs in the relation $R$ from $A = {0, 1, 2, 3, 4}$ to $B = {0, 1, 2, 3}$, where $(a, b) \in R$ if and only if
+
+    \begin{enumerate}[a)]
+        \item $a = b. $
+        \item $a + b = 4.$
+        \item $a > b. $
+        \item $a | b.$
+        \item $gcd(a, b) = 1.$ 
+        \item $lcm(a, b) = 2.$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item ${(0,0),(1,1),(2,2),(3,3)}$
+        \item ${(1,3),(2,2),(3,1),(4,0)}$
+        \item ${(1,0),(2,0),(2,1),(3,0),(3,1),(3,2),(4,0),(4,1),(4,2),(4,3)}$
+        \item ${(1,0),(1,1),(1,2),(1,3),(2,0),(2,2),(3,0),(3,3),(4,0)}$
+        \item ${(1,0),(1,1),(1,2),(1,3),(2,0),(2,1),(3,0),(3,1),(3,2),(4,0),(4,1),(4,3)}$
+        \item ${(1,2),(2,1),(2,2)}$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 6}]
+	Determine whether the relation $R$ on the set of all real numbers is reflexive, symmetric, antisymmetric, and/or transitive, where $(x, y) \in R$ if and only if
+
+    \begin{enumerate}[a)]
+        \item $x + y = 0. $
+        \item $x = \pm y.$
+        \item $x - y$ is a rational number.
+        \item $x = 2y. $
+        \item $xy \geq 0.$
+        \item $xy = 0. $
+        \item $ x = 1.$
+        \item $x = 1$ or $y = 1.$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item \textbf{NOT} reflexive, symmetric, \textbf{NOT} antisymmetric
+        \item \textbf{NOT} reflexive, \textbf{NOT} symmetric, antisymmetric
+        \item reflexive, symmetric, \textbf{NOT} antisymmetric
+        \item \textbf{NOT} reflexive, \textbf{NOT} symmetric, antisymmetric
+        \item reflexive, symmetric, \textbf{NOT} antisymmetric
+        \item \textbf{NOT} reflexive, symmetric, \textbf{NOT} antisymmetric
+        \item \textbf{NOT} reflexive, \textbf{NOT} symmetric, antisymmetric
+        \item \textbf{NOT} reflexive, symmetric, \textbf{NOT} antisymmetric
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 30}]
+	Let $R_1 = {(1, 2), (2, 3), (3, 4)}$ and $R_2 = {(1, 1), (1, 2), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3), (3, 4)}$ be relations from ${1, 2, 3}$ to ${1, 2, 3, 4}$. Find 
+
+    \begin{enumerate}[a)]
+        \item $R_1 \cup  R_2. $
+        \item $R_1 \cap R_2.$
+        \item $R_1 - R_2. $
+        \item $R_2 - R_1.$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item $R_1 \cup  R_2={(1,1),(1,2),(2,1),(2,3),(3,1),(3,2),(3,3),(3,4)}$
+        \item $R_1 \cap R_2={(1,2),(2,3),(3,4)}$
+        \item $R_1 - R_2=\emptyset$
+        \item $R_2 - R_1={(1,1),(2,1),(3,1),(3,2),(3,3)}$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 34}]
+    $$R_1 = \{(a, b) \in R_2 | a > b\}$$, the greater than relation,\\
+    $$R_2 = \{(a, b) \in R_2 | a \geq b\}$$, the greater than or equal to relation,\\
+    $$R_3 = \{(a, b) \in R_2 | a < b\}$$, the less than relation,\\
+    $$R_4 = \{(a, b) \in R_2 | a \leq b\}$$, the less than or equal to relation,\\
+    $$R_5 = \{(a, b) \in R_2 | a = b\}$$, the equal to relation,\\
+    $$R_6 = \{(a, b) \in R_2 | a \neq b\}$$, the unequal to relation.\\
+	Find 
+    \begin{shortenumerate}[a)]
+        \item $R_1 \cup R_3. $
+        \item $R_1 \cup R_5.$
+        \item $R_2 \cap R_4. $
+        \item $R_3 \cap R_5.$
+        \item $R_1 - R_2. $
+        \item $R_2 - R_1.$
+        \item $R_1 \oplus R_3. $
+        \item $R_2 \oplus R_4.$
+    \end{shortenumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item $R_1 \cup R_3=R_6 $
+        \item $R_1 \cup R_5=R_2$
+        \item $R_2 \cap R_4=R_5$
+        \item $R_3 \cap R_5=R_4$
+        \item $R_1 - R_2= \emptyset $
+        \item $R_2 - R_1= R_5$
+        \item $R_1 \oplus R_3=R_6$
+        \item $R_2 \oplus R_4=R_6$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 48}]
+	Let $S$ be a set with $n$ elements and let $a$ and $b$ be distinct elements of $S$. How many relations $R$ are there on $S$ such that
+    \begin{enumerate}[a)]
+        \item $(a, b) \in R? $
+        \item $(a, b) \notin R?$
+        \item no ordered pair in $R$ has $a$ as its first element?
+        \item at least one ordered pair in $R$ has a as its first element?
+        \item no ordered pair in $R$ has $a$ as its first element or $b$ as its second element?
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    There are $2^{n^2}$ relations on $S$.
+	\begin{enumerate}[a)] 
+        \item $2^{{n^2-1}} $
+        \item $2^{{n^2-1}} $
+        \item $2^{{(n-1)n}} $
+        \item $2^{{n^2-1}}-2^{(n-1)n}  $
+        \item $2^{(n-1)^2}  $
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 52}]
+	Suppose that $R$ and $S$ are reflexive relations on a set $A$. Prove or disprove each of these statements.
+    \begin{enumerate}[a)]
+        \item $R \cup S$ is reflexive.
+        \item $R \cap S$ is reflexive.
+        \item $R \oplus S$ is irreflexive.
+        \item $R - S$ is irreflexive.
+        \item $S \circ R$ is reflexive.
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item Supposed $a$ is an element of a set $A$, then $(a,a)$ is in $R$ and $S$. Therefore, $(a,a)$ is also in $R \cup S$. $R \cup S$ is reflexive.
+        \item Supposed $a$ is an element of a set $A$, then $(a,a)$ is in $R$ and $S$. Therefore, $(a,a)$ is not in $R \oplus S$. $R \oplus S$ is irreflexive.
+        \item Supposed $a$ is an element of a set $A$, then $(a,a)$ is in $R$ and $S$. Therefore, $(a,a)$ is not in $R - S$. $R - S$ is irreflexive.
+        \item Supposed $a$ is an element of a set $A$, then $(a,a)$ is in $R$ and $S$. Therefore, $(a,a)$ is alse in $S \circ R$. $S \circ R$ is reflexive.
+    \end{enumerate}
+\end{Sol}
+
+\clearpage
+
+\section{9.2 \textit{n}-ary Relations and Their Applications}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	The 4-tuples in a 4-ary relation represent these attributes of published books: title, ISBN, publication date, number of pages.
+    \begin{enumerate}[a)]
+        \item What is a likely primary key for this relation?
+        \item Under what conditions would (title, publication date) be a composite key?
+        \item Under what conditions would (title, number of pages) be a composite key?
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item ISBN. Because it is unique for each book.
+        \item When any two of books have same title and publication date.
+        \item When any two of books have same title and number of pages.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 9}]
+	The 5-tuples in a 5-ary relation represent these attributes of all people in the United States: name, Social Security number, street address, city, state.
+    \begin{enumerate}[a)]
+        \item Determine a primary key for this relation.
+        \item Under what conditions would (name, street address) be a composite key?
+        \item Under what conditions would (name, street address, city) be a composite key?
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item Social Security number. Because it is unique for each book.
+        \item When any two of people have same name and live at street address.
+        \item When any two of people have same name, live at street address and city.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{9.3 Representing Relations}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 1}]
+	Represent each of these relations on ${1, 2, 3}$ with a matrix (with the elements of this set listed in increasing order).
+    \begin{enumerate}[a)]
+        \item ${(1, 1), (1, 2), (1, 3)}$
+        \item ${(1, 2), (2, 1), (2, 2), (3, 3)}$
+        \item ${(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)}$
+        \item ${(1, 3), (3, 1)}$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 0 \\ 1 & 1 & 0 \\ 0 & 0 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 1 & 0 & 0\end{bmatrix}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	List the ordered pairs in the relations on {1, 2, 3, 4} corresponding to these matrices (where the rows and columns correspond to the integers listed in increasing order).
+    \begin{enumerate}[a)]
+        \item $\begin{bmatrix} 1 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 \\ 0 & 1 & 1 & 1 \\ 1 & 0 & 1 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 1 \\ 1 & 0 & 0 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 \\ 0 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0\end{bmatrix}$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)] 
+        \item $\{(1,1),(1,2),(1,4),(2,1),(2,3),(3,2),(3,3),(3,4),(4,1),(4,3),(4,4)\}$
+        \item $\{(1,1),(1,2),(1,3),(2,2),(3,3),(3,4),(4,1),(4,4)\}$
+        \item $\{(1,2),(1,4),(2,1),(2,3),(3,2),(3,4),(4,1),(4,3)\}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 10}]
+	How many nonzero entries does the matrix representing the relation $R$ on $A = \{1, 2, 3, … , 1000\}$ consisting of the first 1000 positive integers have if $R$ is
+    \begin{enumerate}[a)]
+        \item $\{(a, b) | a \leq b\}?$
+        \item $\{(a, b) | a = b \pm 1\}?$
+        \item $\{(a, b) | a + b = 1000\}?$
+        \item $\{(a, b) | a + b \leq 1001\}?$
+        \item $\{(a, b) | a \neq 0\}?$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $1001*500=500500$
+        \item $2*998 + 2=1998$
+        \item $999$
+        \item $1001*500=500500$
+        \item $1000*1000=1000000$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 14}]
+	Let $R_1$ and $R_2$ be relations on a set A represented by the matrices
+    \begin{equation}
+        M_{R_1} =\begin{bmatrix} 0 & 1 & 0 \\ 1 & 1 & 1 \\ 1 & 0 & 0 \end{bmatrix} \quad \text{and} \quad
+        M_{R_2} =\begin{bmatrix} 0 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix} \nonumber
+    \end{equation}
+    Find the matrices that represent
+    \begin{shortenumerate}
+        \item $R_1 \cup R_2. $
+        \item $R_1 \cap R_2. $
+        \item $R_2 \circ R_1.$
+        \item $R_1 \circ R_1. $
+        \item $R_1 \oplus R_2.$
+    \end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\begin{bmatrix} 0 & 1 & 0 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 0 & 0 \end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 1 \\ 1 & 1 & 1 \\ 0 & 1 & 0 \end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 0 & 1 & 0 \end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 0 & 0 \\ 1 & 0 & 0 \\ 0 & 1 & 1 \end{bmatrix}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 15}]
+	Let $R$ be the relation represented by the matrix
+    \begin{equation}
+        M_{R} =\begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 1 & 0 \end{bmatrix} \nonumber
+    \end{equation}
+    Find the matrices that represent
+    \begin{shortenumerate}
+        \item $R^2$
+        \item $R^3$
+        \item $R^4$
+    \end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\begin{bmatrix} 0 & 0 & 1 \\ 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 35}]
+	Show that if $\mathbf{M}_R$ is the matrix representing the relation $R$, then $\mathbf{M}^{[n]}_R$ is the matrix representing the relation $R^n$.
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        We can proof by mathematical induction. \\
+        \textit{Basic step:} Trivial for $n = 1$. \\
+        \textit{Inductive step:} Assume true for $k$. $\mathbf{M}^{[k]}_R = \mathbf{M}_{R^{k}}$ , Because $R_{k+1} = R^{k} \circ R$, and its matrix is $\mathbf{M}_{R^{k}} \odot \mathbf{M}_R = \mathbf{M}^{[k+1]}_R$ \\
+        Therefore,  it is true for positive integers $n$.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{9.4 Closures of Relations}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 3}]
+	Let $R$ be the relation $\{ (a, b) |\  a \ \text {divides} \ b \}$ on the set of integers. What is the symmetric closure of $R$?
+\end{tcolorbox}
+\begin{Sol}[]
+    $\{ (a, b) | \ a \ \text{divides} \ b \ \text{or} \ b \ \text{divides} \ a \}$
+\end{Sol}
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	How can the directed graph representing the symmetric closure of a relation on a finite set be constructed from the directed graph for this relation?
+\end{tcolorbox}
+\begin{Sol}[]
+    We can add an edge from $x$ to $y$ whenever this edge is not existed but the edge from $y$ to $x$ is.
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 11}]
+	Find the directed graph of the smallest relation that is both reflexive and symmetric that contains each of the relations with directed graphs shown in Exercises 5-7.
+\end{tcolorbox}
+\begin{Sol}[]
+    \includegraphics*[scale=0.6]{T11.jpg}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 16}]
+	Determine whether these sequences of vertices are paths in this directed graph.
+    \begin{enumerate}[a)]
+        \item $a, b, c, e$
+        \item $b, e, c, b, e$
+        \item $a, a, b, e, d, e$
+        \item $b, c, e, d, a, a, b$
+        \item $b, c, c, b, e, d, e, d$
+        \item $a, a, b, b, c, c, b, e, d$
+    \end{enumerate}
+    \begin{center}
+        \includegraphics*[scale=0.4]{T16.png}
+    \end{center}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item Yes.
+        \item No, we can not go to $c$ from $e$.
+        \item Yes.
+        \item No, we can not go to $a$ from $d$.
+        \item Yes.
+        \item No, we can not go to $b$ from $b$.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 21}]
+	Let $R$ be the relation on the set of all students containing the ordered pair $(a, b)$ if a and b are in at least one common class and $a \neq b$. When is $(a, b)$ in
+    \begin{enumerate}[a)]
+        \item $R^2$?
+        \item $R^3$?
+        \item $R^*$?
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item If for each $a$ and $b$ there exists a student $c$ who is in at least on common class with $a$ and $b$.
+        \item If for each $a$ and $b$ there exists students $c$ and $d$ such that $a$ and $c$ are in at least one common class, $c$ and $d$ are in at least one common class and $d$ and $b$ are in at least one common class.
+        \item If for each $a$ and $b$ there exists students $s_1, \ s_2, \ ..., \ s_n$ such that $a$ and $s_1$ are in at least one common class, $s_i$ and $s_{i+1}$ when $i\geq1$  are in at least one common class and $s_n$ and $b$ are in at least one common class.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 25}]
+	Use Algorithm 1 to find the transitive closures of these relations on ${1, 2, 3, 4}$
+    \begin{enumerate}[a)]
+        \item ${(1, 2), (2,1), (2,3), (3,4), (4,1)}$
+        \item ${(2, 1), (2,3), (3,1), (3,4), (4,1), (4, 3)}$
+        \item ${(1, 2), (1,3), (1,4), (2,3), (2,4), (3, 4)}$
+        \item ${(1, 1), (1,4), (2,1), (2,3), (3,1), (3, 2), (3,4), (4, 2)}$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 0 & 0 & 0 \\ 1 & 0 & 1 & 1 \\ 1 & 0 & 1 & 1 \\ 1 & 0 & 1 & 1\end{bmatrix}$
+        \item $\begin{bmatrix} 0 & 1 & 1 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0\end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{9.5 Equivalence Relations}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 3}]
+	Which of these relations on the set of all functions from $\textbf{Z}$ to $\textbf{Z}$ are equivalence relations? Determine the properties of an equivalence relation that the others lack.
+
+    \begin{enumerate}[a)]
+        \item $\{(f, g) | f(1) = g(1)\}$
+        \item $\{(f, g) | f(0) = g(0) \text{ or } f(1) = g(1)\}$
+        \item $\{(f, g) | f(x) - g(x) = 1 \text{ for all } x \in \mathbf{Z}\}$
+        \item $\{(f, g) | \text{ for some } C \in \mathbf{Z}, \text{ for all } x \in \mathbf{Z}, f(x) - g(x) = C\}$
+        \item $\{(f, g) | f(0) = g(1) \text{ and } f(1) = g(0)\}$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item Equivalence relation.
+        \item \textbf{Not} an equivalence relation. Not transitive.
+        \item \textbf{Not} an equivalence relation. Not reflexive, Not symmetric, Not transitive.
+        \item Equivalence relation.
+        \item \textbf{Not} an equivalence relation. Not reflexive, Not transitive.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 11}]
+	Show that the relation $R$ consisting of all pairs $(x, y)$ such that x and y are bit strings of length three or more that agree in their first three bits is an equivalence relation on the set of all bit strings of length three or more.
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{itemize}
+        \item \textit{Reflexive:} For $(x,x)$ it is obviously in $R$.
+        \item \textit{Symmetric:} If $(x,y)$ is in $R$, then they agree in first three bits, so $(y,x)$ is also in $R$.
+        \item \textit{Transitive:}If $(x,y)$ and $(y,z)$ are in $R$, then they agree in first three bits, so $(x,z)$ is also in $R$.
+    \end{itemize}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 15}]
+	Let $R$ be the relation on the set of ordered pairs of positive integers such that $((a, b), (c, d)) \in R$ if and only if $a + d = b + c$. Show that $R$ is an equivalence relation.
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{itemize}
+        \item \textit{Reflexive:} For $((a,b),(a,b))$ it is obviously in $R$.
+        \item \textit{Symmetric:} If $((c,d),(a,b))$ is in $R$, then $c + b = a + d$, so $((a,b),(c,d))$ is also in $R$.
+        \item \textit{Transitive:}If $((a,b),(c,d))$ and $((c,d),(e,f))$ are in $R$, then
+            $$a + d = c + b, c + f = d + e  $$
+            $$c-d=a-b=e-f$$ 
+            $$a+f=b+e$$ 
+        so $((a,b),(e,f))$ is also in $R$.
+    \end{itemize}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 31}]
+	What are the equivalence classes of the bit strings in Exercise 30 for the equivalence relation from Exercise 12?
+    \begin{shortenumerate}
+        \item $010$
+        \item $1011$
+        \item $11111$
+        \item $01010101$
+    \end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item all bit strings of length 3
+        \item the bit strings of length 4 that end with 1
+        \item the bit strings of length 5 that end with 11
+        \item the bit strings of length 8 that end with 10101
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 41}]
+	Which of these collections of subsets are partitions of $\{1, 2, 3, 4, 5, 6\}$?
+    \begin{enumerate}[a)]
+        \item $\{1, 2\}, \{2, 3, 4\}, \{4, 5, 6\}$
+        \item $\{1\}, \{2, 3, 6\}, \{4\}, \{5\}$
+        \item $\{2, 4, 6\}, \{1, 3, 5\}$
+        \item $\{1, 4, 5\}, \{2, 6\}$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item not a partition. Because the number of 2 appears twice.
+        \item a partition.
+        \item a partition.
+        \item not a partition. Because the number of 3 does not appear.
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 47}]
+	List the ordered pairs in the equivalence relations produced by these partitions of $\{0, 1, 2, 3, 4, 5\}$.
+    \begin{enumerate}[a)]
+        \item $\{0\}, \{1, 2\}, \{3, 4, 5\}$
+        \item $\{0, 1\}, \{2, 3\}, \{4, 5\}$
+        \item $\{0, 1, 2\}, \{3, 4, 5\}$
+        \item $\{0\}, \{1\}, \{2\}, \{3\}, \{4\}, \{5\}$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\{(0,0),(1,1),(1,2),(2,1),(2,2),(3,3),(3,4),(3,5),(4,3),(4,4),(4,5),(5,3),(5,4),(5,5)\}$
+        \item $\{(0,0),(0,1),(1,0),(1,1),(2,2),(2,3),(3,2),(3,3),(4,4),(4,5)\}$
+        \item $\{(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2),(3,3),(3,4),(3,5),(4,3),(4,4),\\ (4,5),(5,3),(5,4),(5,5)\}$
+        \item $\{(0,0),(1,1),(2,2),(3,3),(4,4),(5,5)\}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 55}]
+	Find the smallest equivalence relation on the set $\{a, b, c, d, e\}$ containing the relation $\{(a, b), (a, c), (d, e)\}$.
+\end{tcolorbox}
+\begin{Sol}[]
+    The partition is $\{\{a,b,c\},\{d,e\}\}$ \\
+    And the equivalence relation is $\{(a,a),(a,b),(a,c),(b,a),(b,b),(b,c), \\ (c,a),(c,b),(c,c),(d,d),(d,e),(e,d),(e,d)\}$
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{9.6 Partial Orderings}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 1}]
+	Which of these relations on ${0, 1, 2, 3}$ are partial orderings? Determine the properties of a partial ordering that the others lack.
+    \begin{enumerate}[a)]
+        \item ${(0, 0), (1, 1), (2, 2), (3, 3)}$
+        \item ${(0, 0), (1, 1), (2, 0), (2, 2), (2, 3), (3, 2), (3, 3)}$
+        \item ${(0, 0), (1, 1), (1, 2), (2, 2), (3, 3)}$
+        \item ${(0, 0), (1, 1), (1, 2), (1, 3),(2, 2), (2, 3), (3, 3)}$
+        \item ${(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0),(2, 2), (3, 3)}$
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item Is a partial ordering.
+        \item Not a partial ordering. Because it is not antisymmetric, not transitive.
+        \item Is a partial ordering.
+        \item Is a partial ordering.
+        \item Not a partial ordering. Because it is not antisymmetric, not transitive.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	Is $(S, R)$ a poset if S is the set of all people in the world and $(a, b) \in R$, where a and b are people, if
+    \begin{enumerate}[a)]
+        \item $a$ is no shorter than $b$?
+        \item $a$ weighs more than $b$?
+        \item $a = b$ or $a$ is a descendant of $b$?
+        \item $a$ and $b$ do not have a common friend?
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item Is a poset.
+        \item Not a poset. Because it is not reflexive.
+        \item Is a poset.
+        \item Not a poset. Because it is not reflexive.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 7}]
+	Determine whether the relations represented by these zero-one matrices are partial orders.
+    \begin{enumerate}[a)]
+        \item $\begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$
+        \item $\begin{bmatrix} 1 & 1 & 1 & 0 \\0 & 1 & 1 & 0 \\ 0 & 0 & 1 & 1 \\ 1 & 1 & 0 & 1 \end{bmatrix}$
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item Not a partial ordering. Because it is not antisymmetric.
+        \item Is a partial ordering.
+        \item Not a partial ordering. Because it is not transitive.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 17}]
+	Find the lexicographic ordering of these n-tuples:
+    \begin{enumerate}[a)]
+        \item $(1, 1, 2), (1, 2, 1) $
+        \item $(0, 1, 2, 3), (0, 1, 3, 2)$
+        \item $(1, 0, 1, 0, 1), (0, 1, 1, 1, 0)$
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $(1, 1, 2)< (1, 2, 1) $
+        \item $(0, 1, 2, 3)< (0, 1, 3, 2)$
+        \item $(0, 1, 1, 1, 0)<(1, 0, 1, 0, 1)$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Answer these questions for the partial order represented by this Hasse diagram.
+    \begin{center}
+        \includegraphics*[scale=0.3]{T32.png}
+    \end{center}
+    \begin{enumerate}[a)]
+        \item Find the maximal elements.
+        \item Find the minimal elements.
+        \item Is there a greatest element?
+        \item Is there a least element?
+        \item Find all upper bounds of $\{a, b, c\}$.
+        \item Find the least upper bound of $\{a, b, c\}$, if it exists.
+        \item Find all lower bounds of $\{f, g, h\}$.
+        \item Find the greatest lower bound of $\{f, g, h\}$, if it exists.
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\{l,m\}$
+        \item $\{a,b,c\}$
+        \item There is not a greatest element.
+        \item There is not a least element.
+        \item $\{k,l,m\}$
+        \item $\{k\}$
+        \item $\{k,l,m\}$
+        \item There is not a greatest lower bound of $\{f, g, h\}$.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 34}]
+	Answer these questions for the poset $(\{2, 4, 6, 9, 12,18, 27, 36, 48, 60, 72\}, |)$.
+    \begin{enumerate}[a)]
+        \item Find the maximal elements.
+        \item Find the minimal elements.
+        \item Is there a greatest element?
+        \item Is there a least element?
+        \item Find all upper bounds of $\{2, 9\}$.
+        \item Find the least upper bound of $\{2, 9\}$, if it exists.
+        \item Find all lower bounds of $\{60, 72\}$.
+        \item Find the greatest lower bound of $\{60, 72\}$, if it exists.
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\{27,48,60,72\}$
+        \item $\{2,9\}$
+        \item There is not a greatest element.
+        \item There is not a least element.
+        \item $\{18,36,72\}$
+        \item $\{18\}$
+        \item $\{2,4,6,12\}$
+        \item $\{12\}$.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 35}]
+	Answer these questions for the poset $(\{\{1\}, \{2\}, \{4\},\{1, 2\}, \{1, 4\}, \\  \{2, 4\}, \{3, 4\}, \{1, 3, 4\}, \{2, 3, 4\}\}, \subseteq )$.
+    \begin{enumerate}[a)]
+        \item Find the maximal elements.
+        \item Find the minimal elements.
+        \item Is there a greatest element?
+        \item Is there a least element?
+        \item Find all upper bounds of $\{\{2\}, \{4\}\}$.
+        \item Find the least upper bound of $\{\{2\}, \{4\}\}$, if it exists.
+        \item Find all lower bounds of $\{\{1, 3, 4\}, \{2, 3, 4\}\}$.
+        \item Find the greatest lower bound of $\{\{1, 3, 4\}, \{2, 3, 4\}\}$, if it exists.
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\{1\},\{2\},\{4\}$
+        \item $ \{1, 3, 4\}, \{2, 3, 4\}$
+        \item There is not a greatest element.
+        \item There is not a least element.
+        \item $ \{2, 4\}, \{2, 3, 4\}$
+        \item $ \{2, 3, 4\}$
+        \item $  \{4\},\{3,4\}$
+        \item $\{3,4\}$
+    \end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 43}]
+    Determine whether the posets with these Hasse diagrams are lattices.
+	\begin{center}
+        \includegraphics*[scale=0.3]{T43.png}
+    \end{center}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    In each case, we need to decide whether every pair of elements has a least upper bound and a greatest lower bound.
+
+    \begin{enumerate}[a)]
+        \item This is a lattice.
+        \item This is not a lattice.
+        \item This is a lattice.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+\end{document}

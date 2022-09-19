@@ -1,0 +1,967 @@
+\documentclass[b4paper,12pt,oneside,article]{memoir}
+\setlrmarginsandblock{3cm}{*}{1}
+\setulmarginsandblock{3cm}{*}{1}
+\setheadfoot{2cm}{\footskip}          
+\checkandfixthelayout[nearest]
+
+
+\setlength{\parindent}{0pt}
+
+\usepackage[utf8]{inputenc} % 显示中文
+\usepackage{fancyhdr} % 导入fancyhdr包
+\usepackage{amsmath, amssymb, bm, mathtools, mathdots}
+
+\pagestyle{fancy}
+% 页眉设置
+\fancyhf{}
+\fancyhead[L]{Yilin Chen}
+\fancyhead[R]{\today}
+\fancyhead[C]{\rightmark}
+% 页脚设置F8
+\fancyfoot[L]{Powered by \LaTeX}
+\fancyfoot[C]{\thepage} % 页码
+\fancyfoot[R]{DM Homework Assignment}
+\renewcommand{\headrulewidth}{4pt} % 分隔线宽度4磅
+\renewcommand{\footrulewidth}{2pt}
+
+\usepackage{newtxtext}
+\usepackage{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+% \usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+%\usepackage{framed} % 实现方框效果
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{shortlst}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{caption}
+\setcounter{secnumdepth}{0}
+
+ %-------------------------
+ \usepackage{tabularx}
+
+ \newcounter{proofstep}
+ \newcommand{\step}{}
+ \newenvironment{proof}
+   {\par
+	\setcounter{proofstep}{0}%
+	\renewcommand{\step}{\refstepcounter{proofstep}\theproofstep. &}%
+	\noindent
+	\begin{tabular}{ @{} r c l @{}}}
+   {\end{tabular}}
+ %-------------------------
+
+\definecolor{formalshade}{rgb}{0.95,0.95,1} % 文本框颜色
+\definecolor{greenshade}{rgb}{0.90,0.99,0.91} % 绿色文本框，竖线颜色设为 Green
+\definecolor{redshade}{rgb}{1.00,0.90,0.90}% 红色文本框，竖线颜色设为 LightCoral
+\definecolor{brownshade}{rgb}{0.99,0.97,0.93} % 莫兰迪棕色，竖线颜色设为 BurlyWood
+
+\newenvironment{formal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{DarkBlue}\vrule width 2pt}%
+{\color{formalshade}\vrule width 4pt}%
+\colorbox{formalshade}%
+}%
+
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}
+\begin{adjustwidth}{}{7pt}%
+\vspace{2pt}\vspace{2pt}%
+}
+{%
+\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\usepackage[framemethod=TikZ]{mdframed}
+
+\newcounter{Sol}[section]
+\renewcommand{\theSol}{\arabic{section}.\arabic{Sol}}
+\newenvironment{Sol}[1][]{
+	\refstepcounter{Sol}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=blue!20]
+			{\strut Solution~\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=blue!20,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+
+\begin{document}
+\chapter*{Chapter 1 The Foundations:Logic and Proofs}
+\section{1.4 Predicates and Quantifiers}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 2}]
+	Let \textit{P}(x) be the statement ``The word x contains the
+	letter a.'' What are these truth values?
+	\begin{shortenumerate}[a]
+		\item \textit{P}(orange)
+		\item \textit{P}(lemon)
+		\item \textit{P}(true)
+		\item \textit{P}(false)
+	\end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\textit{P}(orange) and \textit{P}(false) are truth values.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	State the value of x after the statement \textbf{if} \textit{P}(x) \textbf{then} x := 1
+	is executed, where \textit{P}(x) is the statement ``x > 1,'' if the
+	value of x when this statement is reached is
+	\begin{enumerate}[\bfseries a)]
+		\item x=0.
+		\item x=1.
+		\item x=2.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	c)
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 6}]
+	Let N(x) be the statement ``x has visited North Dakota,''
+	where the domain consists of the students in your school.
+	Express each of these quantifications in English.
+	\begin{shortenumerate}[a)]
+		\item $\exists xN(x) $
+		\item $\forall xN(x) $
+		\item $\lnot \exists xN(x)$
+		\item $\exists x\lnot N(x)$ 
+		\item $\lnot \forall xN(x)$ 
+		\item $\forall x\lnot N(x)$
+	\end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}
+		\item There exists a student in the school who has visited North Dakota.
+		\item All students in the school have visited North Dakota.
+		\item There does \textbf{not} exist a student in the school who has visited North Dakota.
+		\item There exists a student in the school who has \textbf{not} visited North Dakota.
+		\item \textbf{Not} all students in the school have visited North Dakota.
+		\item All students in the school have \textbf{not} visited North Dakota.
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+\
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	Translate these statements into English, where R(x) is ``x
+	is a rabbit'' and H(x) is ``x hops'' and the domain consists
+	of all animals.
+	\begin{shortenumerate}[a)]
+		\item $\forall x(R(x) \rightarrow H(x))$
+		\item $\forall x(R(x) \land H(x))$
+		\item $\exists x(R(x) \rightarrow H(x))$
+		\item $\exists x(R(x) \land H(x))$ 
+	\end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}
+		\item All rabbits hop.
+		\item All animals are rabbits and hop.
+		\item There exists an animal such that if it is a rabbit, then it hops.
+		\item There exists an animal that is a rabbit and hops.
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 10}]
+	Let \textit{C}(x) be the statement ``x has a cat,'' let \textit{D}(x) be the
+	statement ``x has a dog,'' and let \textit{F}(x) be the statement ``x
+	has a ferret.'' Express each of these statements in terms
+	of \textit{C}(x), \textit{D}(x), \textit{F}(x), quantifiers, and logical connectives.
+	Let the domain consist of all students in your class.
+	\begin{enumerate}[\bfseries a)]
+		\item A student in your class has a cat, a dog, and a ferret.
+		\item All students in your class have a cat, a dog, or a ferret.
+		\item Some student in your class has a cat and a ferret, but
+		not a dog.
+		\item No student in your class has a cat, a dog, and a ferret.
+		\item For each of the three animals, cats, dogs, and ferrets,
+		there is a student in your class who has this animal as
+		a pet.	
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists x(C(x)\land D(x) \land F(x))$
+		\item $\forall x(C(x)\land D(x) \land F(x))$
+		\item $\exists x(C(x)\land \lnot D(x) \land F(x))$
+		\item $\lnot \exists x(C(x)\land D(x) \land F(x))$
+		\item $(\exists xC(x)) \land (\exists xD(x)) \land (\exists F(x))$
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 16}]
+	Determine the truth value of each of these statements
+	if the domain of each variable consists of all real numbers.
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists x(x^2 = 2)$
+		\item $\exists x(x^2 = -1)$
+		\item $\forall x(x^2 + 2 \geq  1)$ 
+		\item $\forall x(x^2 \neq x)$	
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item True
+		\item False
+		\item True
+		\item False
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 18}]
+	Suppose that the domain of the propositional function
+	\textit{P}(x) consists of the integers -2, -1, 0, 1, and 2. Write
+	out each of these propositions using disjunctions, conjunctions, and negations.
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists xP(x) $
+		\item $\forall xP(x) $
+		\item $\exists x\lnot P(x)$
+		\item $\forall x\lnot P(x)$ 
+		\item $\lnot \exists xP(x)$ 
+		\item $\lnot \forall xP(x)$
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item $P(-1) \lor P(-2) \lor P(0) \lor P(1) \lor P(2)$
+		\item $P(-1) \land P(-2) \land P(0) \land P(1) \land P(2)$
+		\item $\lnot P(-1) \lor \lnot P(-2) \lor \lnot P(0) \lor \lnot P(1) \lor \lnot P(2)$
+		\item $\lnot P(-1) \land \lnot P(-2) \land \lnot P(0) \land \lnot P(1) \land \lnot P(2)$
+		\item $\lnot P(-1) \land \lnot P(-2) \land \lnot P(0) \land \lnot P(1) \land \lnot P(2)$
+		\item $\lnot P(-1) \lor \lnot P(-2) \lor \lnot P(0) \lor \lnot P(1) \lor \lnot P(2)$
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 24}]
+	Translate in two ways each of these statements into logical expressions using predicates, quantifiers, and logical
+	connectives. First, let the domain consist of the students
+	in your class and second, let it consist of all people.
+	\begin{enumerate}[\bfseries a)]
+		\item Everyone in your class has a cellular phone.
+		\item Somebody in your class has seen a foreign movie.
+		\item There is a person in your class who cannot swim.
+		\item All students in your class can solve quadratic equations.
+		\item Some student in your class does not want to be rich.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	Let $C(x)$ be the propositional function ``x is in your class.''
+	\begin{enumerate}[\bfseries a)]
+		\item 
+			Let $P(x)$ be the propositional function ``x has a cellular phone.''
+			First we have $\forall xP(x)$, 
+			and second we have $\forall x(C(x) \rightarrow P(x))$
+		\item  
+			Let $F(x)$ be the propositional function ``x has seen a foreign movie.''
+			First we have $\exists xF(x)$, 
+			and second we have $\exists x(C(x) \land F(x))$
+		\item  
+			Let $S(x)$ be the propositional function ``x cannot swim.''
+			First we have $\exists x S(x)$, 
+			and second we have $\exists x(C(x) \land S(x))$
+		\item  
+			Let $Q(x)$ be the propositional function ``x can solve quadratic equations.''
+			First we have $\forall x Q(x)$, 
+			and second we have $\forall x(C(x) \rightarrow Q(x))$
+		\item  
+			Let $R(x)$ be the propositional function ``x does not want to be rich.''
+			First we have $\exists x R(x)$, 
+			and second we have $\exists x(C(x) \land R(x))$
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Express each of these statements using quantifiers. Then
+	form the negation of the statement so that no negation is
+	to the left of a quantifier. Next, express the negation in
+	simple English. (Do not simply use the phrase ``It is not
+	the case that.'')
+	\begin{enumerate}[\bfseries a)]
+		\item All dogs have fleas.
+		\item There is a horse that can add.
+		\item Every koala can climb.
+		\item No monkey can speak French.
+		\item There exists a pig that can swim and catch fish.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	Let $C(x)$ be the propositional function ``x is in your class.''
+	\begin{enumerate}[\bfseries a)]
+		\setlength{\itemsep}{0pt}
+		\setlength{\parsep}{0pt}
+		\setlength{\parskip}{0pt}
+		\item 
+			Let $F(x)$ be ``x has fleas.'' and let the domain of discourse be dogs.
+			\begin{itemize}
+				\item origin statement: $\forall xF(x)$
+				\item negation statement: $\exists x\lnot F(x)$
+				\item simple English: There is a dog do not have fleas.
+			\end{itemize}
+		\item 
+			Let $F(x)$ be ``x can add.'' and let the domain of discourse be horse.
+			\begin{itemize}
+				\item origin statement: $\exists xF(x)$
+				\item negation statement: $\forall x\lnot F(x)$
+				\item simple English: No horses can add.
+			\end{itemize}
+		\item 
+			Let $F(x)$ be ``x can climb.'' and let the domain of discourse be Koala.
+			\begin{itemize}
+				\item origin statement: $\forall xF(x)$
+				\item negation statement: $\exists x\lnot F(x)$
+				\item simple English: There is a Koala can not climb.
+			\end{itemize}
+		\item 
+			Let $F(x)$ be ``x can speak French.'' and let the domain of discourse be monky.
+			\begin{itemize}
+				\item origin statement: $\forall x\lnot F(x)$
+				\item negation statement: $\exists x F(x)$
+				\item simple English: There is a monky can speak French.
+			\end{itemize}
+		\item 
+			Let $F(x)$ be ``x can swim and catch fish.'' and let the domain of discourse be pig.
+			\begin{itemize}
+				\item origin statement: $\exists x F(x)$
+				\item negation statement: $\forall x \lnot F(x)$
+				\item simple English: Every pig either can not swim or can not catch fish.
+			\end{itemize}
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 38}]
+	Find a counterexample, if possible, to these universally
+	quantified statements, where the domain for all variables
+	consists of all real numbers.
+	\begin{enumerate}[\bfseries a)]
+		\item $\forall x(x^2 \neq x) $
+		\item $\forall x(x^2 \neq 2) $
+		\item $\forall x(|x| > 0 $
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item Since $1^2 = 1$ and $0^2=0$, the statement is false.
+		\item Since $\sqrt{2}^2 = 2$, the statement is false.
+		\item Since $|0|\leq0 $, the statement is false.
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 42}]
+	Express each of these system specifications using predicates, quantifiers, and logical connectives.
+	\begin{enumerate}[\bfseries a)]
+		\item When there is less than 30 megabytes free on the hard
+		disk, a warning message is sent to all users.
+		\item No directories in the file system can be opened and
+		no files can be closed when system errors have been
+		detected.
+		\item The file system cannot be backed up if there is a user
+		currently logged on.
+		\item Video on demand can be delivered when there are at
+		least 8 megabytes of memory available and the connection speed is at least 56 kilobits per second.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item 
+			Let $F(x)$ be a predicates that means ``There is less than $x$ megabytes free on the hard
+			disk'', with the domain of discourse being positive numbers,
+			and let $U(x)$ be ``User x is sent a warning message''. Then we can have$F(30) \rightarrow \forall x U(x)$
+		\item 
+			Let $S$ be ``System errors have been detected.'', and $D(x)$ be ``Directorie x in the file system can be opened''
+			$I(x)$ be `` File x can be closed.''. Then we have $S \rightarrow \forall x \lnot D(x) \land \forall x \lnot F(x)$
+		\item 
+			Let $I$ be ``The file system can be backed up'', and $U(x)$ be ``User X currently logged on''
+			Then we have $\exists x U(x) \rightarrow \lnot I$
+		\item 
+			Let $V$ be ``Video on demand can be delivered,'', and $M(x)$ be ``There are at least x megabytes of memory available''
+			and let $C(x)$ be ``The connection speed is at least x kilobits per second''
+			Then we have $(M(8) \land C(56)) \rightarrow V$
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 52}]
+	Show that $\forall xP(x) \lor \forall xQ(x)$ and $\forall x(P(x) \lor Q(x))$ are not
+	logically equivalent.
+\end{tcolorbox}
+\begin{Sol}[]
+	Let $P(x)$ be true if and only if $x$ is odd, and let $Q(x)$ be true if and only if $x$ is even.
+	Then for $\forall xP(x) \lor \forall xQ(x)$, it is false, while the proposition $\forall x(P(x) \lor Q(x))$ is true.
+	Therefore, the two propositions are not logically equivalent.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{1.5 Nested Quantifiers}
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	Let $P(x, y)$ be the statement ``Student x has taken class y,''
+	where the domain for x consists of all students in your
+	class and for y consists of all computer science courses
+	at your school. Express each of these quantifications in
+	English.
+	\begin{shortenumerate}
+		\item $\exists x\exists yP(x, y)$ 
+		\item $\exists x\forall yP(x, y)$
+		\item $\forall x\exists yP(x, y)$ 
+		\item $\exists y\forall xP(x, y)$
+		\item $\forall y\exists xP(x, y)$ 
+		\item $\forall x\forall yP(x, y)$
+	\end{shortenumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}
+		\item There is a student in your class has taken some computer science course.
+		\item There is a student in your class has taken all computer science courses.
+		\item Every student in your class has taken some computer science course.
+		\item There is a computer science course that every students in your class has taken it.
+		\item Every computer science course has been taken by at least one student in your class.
+		\item All students in your class have taken all computer science courses.
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	Let $Q(x, y)$ be the statement ``Student x has been a contestant on quiz show y.'' Express each of these sentences
+	in terms of $Q(x, y)$, quantifiers, and logical connectives,
+	where the domain for x consists of all students at your
+	school and for y consists of all quiz shows on television.
+	\begin{enumerate}[\bfseries a)]
+		\item There is a student at your school who has been a contestant on a television quiz show.
+		\item No student at your school has ever been a contestant
+		on a television quiz show.
+		\item There is a student at your school who has been a contestant on \textit{Jeopardy!} and on \textit{Wheel of Fortune}.
+		\item Every television quiz show has had a student from
+		your school as a contestant.
+		\item At least two students from your school have been contestants on \textit{Jeopardy!}.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists x \exists y Q(x,y)$
+		\item $\forall x \forall y \lnot Q(x,y)$
+		\item $\exists xQ(x,Jeopardy!) \land \exists xQ(x,Wheel of Fortune)$
+		\item $\forall y \exists x Q(x,y)$
+		\item $\exists x1 , x2 (Q(x1,Jeopardy!)\land Q(x2,Jeopardy!)\land x1 \neq x2)$
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 10}]
+	Let $F(x, y)$ be the statement ``x can fool y,'' where the domain consists of all people in the world. Use quantifiers
+	to express each of these statements.
+	\begin{enumerate}[\bfseries a)]
+		\item  Everybody can fool Fred.
+		\item  Evelyn can fool everybody.
+		\item  Everybody can fool somebody.
+		\item  There is no one who can fool everybody.
+		\item  Everyone can be fooled by somebody.
+		\item  No one can fool both Fred and Jerry.
+		\item  Nancy can fool exactly two people.
+		\item  There is exactly one person whom everybody can
+		fool.
+		\item  No one can fool himself or herself.
+		\item  There is someone who can fool exactly one person
+		besides himself or herself.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item $\forall x F(x, Fred)$
+		\item $\forall x \forall y F(x, y)$
+		\item $\forall x \exists y F(x, y)$
+		\item $\forall x\forall y \lnot F(x,y)$
+		\item $\forall y \exists x F(x,y)$
+		\item $\lnot \exists x (F(x,Fred)\land F(x,Jerry))$
+		\item $\exists y1\exists y2(F(Nancy, y1) \land F(Nancy, y2) \land y1 \neq y2 \land \forall y(F(Nancy, y) \rightarrow (y = y1 \lor y = y2)))$
+		\item $\exists y ((\forall xF(x,y)) \land (\exists z (\forall xF(x,z))\rightarrow z=y))$
+		\item $\lnot \exists x F(x,x)$
+		\item $\exists x (\exists y (F(x,y) \land (\exists z F(x,z)\rightarrow z=y) \land y \neq x))$
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 24}]
+	Translate each of these nested quantifications into an English statement that expresses a mathematical fact. The
+	domain in each case consists of all real numbers.
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists x\land y(x + y = y)$
+		\item $\forall x\forall y(((x \geq  0) \land (y \leq 0)) \rightarrow (x - y > 0))$
+		\item $\exists x\exists y(((x \leq 0) \land (y \leq 0)) \land (x - y > 0))$
+		\item $\forall x\forall y((x \neq 0) \land (y \neq 0) \leftrightarrow (xy \neq 0))$
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item There exists a real number x that for all real number y it add x equal to itself.
+		\item If a real number x is greater than or equal to zero and y is less than or equal to zero, than x minus y is greater than zero.
+		\item There exists two real number x and y that x and y are both less than or equal to zero and x minus y is greater than zero.
+		\item For any two real number x and y, the product of x and y is nonzero if and only if both x and y are nonzero.
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Express the negations of each of these statements so that
+	all negation symbols immediately precede predicates.
+	\begin{enumerate}[\bfseries a)]
+		\item $\exists z\forall y\forall xT(x, y, z)$
+		\item $\exists x\exists yP(x, y) \land \forall x\forall yQ(x, y)$
+		\item $\exists x\exists y(Q(x, y) \leftrightarrow Q(y, x))$
+		\item $\forall y\exists x\exists z(T(x, y, z) \lor Q(x, y))$
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item $\forall z\exists y\exists x \lnot T(x, y, z)$
+		\item $\forall x\forall yP(x, y) \lor \exists x\exists yQ(x, y)$
+		\item $\forall x\forall y(Q(x, y) \leftrightarrow \lnot Q(y, x))$
+		\item $\exists y\forall x\forall z(\lnot T(x, y, z) \land \lnot Q(x, y))$
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 38}]
+	Express the negations of these propositions using quantifiers, and in English.
+	\begin{enumerate}[\bfseries a)]
+		\item Every student in this class likes mathematics.
+		\item There is a student in this class who has never seen a
+		computer.
+		\item There is a student in this class who has taken every
+		mathematics course offered at this school.
+		\item There is a student in this class who has been in at least
+		one room of every building on campus.
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item In English, the negation is that ``Some student in this class does not like mathematics.''
+		, and let $M(x)$ be ``Student x in this class like mathematics.'', then we have $\exists x M(x)$
+		\item In English, the negation is that ``Every student in the class has seen a computer.'' 
+		, and let $C(x)$ be ``Student x in this class has seen a computer.'', then we have $\forall x C(x)$
+		\item In English, the negation is that ``For every student there is mathematics course that the student has not taken.''
+		, and let $F(x,y)$ be ``Student x in this class has taken mathematics course y'', then we have $\forall x \exists y \lnot F(x,y)$
+		\item In English, the negation is that ``For every student there is a building such that for every room in that building, the student has not
+		been in that room.'', and let $P(x, y)$ be ``Student x in this class has been in room y'' and $Q(y,z)$ be ``Room y is in building z'', then we have $\forall x \exists z \forall y \lnot P(x,y) \lor \lnot Q(y,z)$
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 40}]
+	Find a counterexample, if possible, to these universally
+	quantified statements, where the domain for all variables
+	consists of all integers.
+	\begin{enumerate}[\bfseries a)]
+		\item $\forall x \exists y(x = 1/y)$
+		\item $\forall x \exists y(y^2 - x \leq 100)$
+		\item $\forall x \forall y(x^2 \neq y^3)$
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item When x is zero, we can find an integer y such that $x = 1 /y$
+		\item When x is -101, we can find an integer y such that $y^2 - x \leq 100$ since an  integers' square is positive.
+		\item When x is 1 and y is 1 too, then $x^2 = y^3$
+	\end{enumerate}
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+\section{1.6 Rules of Inference}
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 6}]
+	Use rules of inference to show that the hypotheses ``If it
+	does not rain or if it is not foggy, then the sailing race will
+	be held and the lifesaving demonstration will go on,'' ``If
+	the sailing race is held, then the trophy will be awarded,''
+	and ``The trophy was not awarded'' imply the conclusion
+	``It rained.''
+\end{tcolorbox}
+\begin{Sol}[]
+	Let proposition $r$ be ``It rains'', $f$ be ``it is foggy'', $s$ be ``the selling race will be held,'', $l$ be ``Lifesaving demonstration will go on,'' and $t$ be ``the trophy will be awarded''.
+	Then we have the premises $\lnot r \lor \lnot f \rightarrow s \land l$, $s \rightarrow t$ and $\lnot t$. What we want to conclude is $r$ \\
+	\begin{center}
+		\begin{proof}
+			\step $\lnot t$ & Hypothesis\\
+			\step $s \rightarrow t$ & Hypothesis\\
+			\step $\lnot s$ & Modus tollens using (1) and (2) \\
+			\step $\lnot (s \land l)$ & Domination using (3) \\
+			\step $\lnot r \land \lnot f \rightarrow s \land l$ & Hypothesis\\
+			\step $\lnot (\lnot r \lor \lnot f)$ & Modus tollens using (4)\\
+			\step $r \land f$ & De Morgan's law\\
+			\step $r$ & Simplification using (7)\\
+		\end{proof}
+	\end{center}
+
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 10}]
+	For each of these sets of premises, what relevant conclusion or conclusions can be drawn? Explain the rules of inference used to obtain each conclusion from the premises
+	\begin{enumerate}[\bfseries a)]
+		\item ``If I play hockey, then I am sore the next day.'' ``I
+		use the whirlpool if I am sore.'' ``I did not use the
+		whirlpool.''
+		\item ``If I work, it is either sunny or partly sunny.'' ``I
+		worked last Monday or I worked last Friday.'' ``It was
+		not sunny on Tuesday.'' ``It was not partly sunny on
+		Friday.''
+		\item ``All insects have six legs.'' ``Dragonflies are insects.''
+		``Spiders do not have six legs.'' ``Spiders eat dragonflies.''
+		\item ``Every student has an Internet account.'' ``Homer
+		does not have an Internet account.'' ``Maggie has an
+		Internet account.''
+		\item ``All foods that are healthy to eat do not taste good.''
+		``Tofu is healthy to eat.'' ``You only eat what tastes
+		good.'' ``You do not eat tofu.'' ``Cheeseburgers are not
+		healthy to eat.''
+		\item ``I am either dreaming or hallucinating.'' ``I am not
+		dreaming.'' ``If I am hallucinating, I see elephants running down the road.''
+	\end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[\bfseries a)]
+		\item From ``I did not use the whirlpool.'', we conclude that I am not sore by using modus tollens, and then we conclude that I am not sore by using modus tollens again.
+		\item We can not conclude anything from these premises.
+		\item From ``All insects have six legs.'' and ``Dragonflies are insects.'', we can conclude that dragonflies are insects by using modus ponens, and we can also conclude that Spiders are not insects from ``Spiders eat dragonflies.'' by using modus tollens .
+		\item From ``Every student has an Internet account.'' and ``Homer
+		does not have an Internet account.'', we can conclude that Homer is not a student by using modus tollens.
+		\item We can not conclude anything from these premises.
+		\item From ``I am either dreaming or hallucinating.'' ``I am not
+		dreaming.'', we can conclude that I am hallucinating by using disjunctive syllogism. And from ``If I am hallucinating, I see elephants running down the road.'' we can conclude that I  see elephants running down the road. by using modus ponens.
+	\end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 12}]
+	Show that the argument form with premises $(p \land t) \rightarrow
+	(r \lor s), q \rightarrow (u \land t), u \rightarrow p$, and $\lnot s$ and conclusion $q \rightarrow r$
+	is valid by first using Exercise 11 and then using rules of
+	inference from Table 1.
+\end{tcolorbox}
+\begin{Sol}[]
+	By using Exercise 11 we want to conclude $q \rightarrow r$ with five premises, $(p \land t) \rightarrow
+	(r \lor s), q \rightarrow (u \land t), u \rightarrow p$, $\lnot s$ and $q$. From $q$ and $q \rightarrow (u \land t)$ we conclude that $u \land t$ by modus ponens, and we can have $u$ and $t$ by simplification. From $u \rightarrow p$ we conclude that $p$ by using modus ponens. From $(p \land t) \rightarrow (r \lor s)$ we conclude $r \lor s$ by using modus ponens. Finally from $\lnot s$ by using disjunctive syllogism we conclude $r$.
+
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 18}]
+	What is wrong with this argument? Let $S(x, y)$ be ``x is
+	shorter than y.'' Given the premise $\exists sS(s, Max)$, it follows that $S(Max, Max)$. Then by existential generalization it follows that $\exists xS(x, x)$, so that someone is shorter
+than himself.	
+\end{tcolorbox}
+\begin{Sol}[]
+	From the premise $\exists sS(s, Max)$ we can not conclude that Max is one such s. Therefore this first step is invalid.
+
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 24}]
+	Identify the error or errors in this argument that supposedly shows that if $\forall x(P(x) \lor Q(x))$ is true then $\forall xP(x) \lor \forall xQ(x)$ is true.
+	\\
+	\begin{proof}
+		\step $\forall x(P(x) \lor Q(x))$ & Premise\\
+		\step $P(c) \lor Q(c)$ & Universal instantiation from (1)\\
+		\step $P(c)$ & Simplification from (2)\\
+		\step $\forall xP(x)$ & Universal generalization from (3)\\
+		\step $Q(c)$ & Simplification from (2)\\
+		\step $\forall xQ(x)$ & Universal generalization from (5)\\
+		\step $\forall x(P(x) \lor \forall xQ(x))$ & Conjunction from (4) and (6)\\
+	\end{proof}
+\end{tcolorbox}
+\begin{Sol}[]
+	Steps 3 and 5 are incorrect because simplification applies to conjunctions, not disjunctions.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 28}]
+	Use rules of inference to show that if $\forall x(P(x) \lor Q(x))$ and
+	$\forall x((\lnot P(x) \land Q(x)) \rightarrow R(x))$ are true, then $\forall x(\lnot R(x) \rightarrow P(x))$ is also true, where the domains of all quantifiers
+	are the same.
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{center}
+		\begin{proof}
+			\step $\forall x(P(x) \lor Q(x))$ & Premise \\
+			\step $P(x) \lor Q(x)$ & UI from (1) \\
+			\step $\forall x((\lnot P(x) \land Q(x)) \rightarrow R(x))$ & Premise \\
+			\step $(\lnot P(x) \land Q(x)) \rightarrow R(x)$ & UI from (3) \\
+			\step $\lnot R(x) \rightarrow (P(x) \lor \lnot Q(x))$ & Contrapositive \\
+			\step $\lnot R(x) \rightarrow (P(x) \lor \lnot Q(x)) \land (P(x) \lor Q(x)))$ & Identity from (2)(5) \\
+			\step $\lnot R(x) \rightarrow (((P(x) \lor \lnot Q(x)) \land P(x)) \lor ((P(x) \lor \lnot Q(x)) \land Q(x))))$ & Distributive from (6) \\
+			\step $\lnot R(x) \rightarrow (((P(x) \lor \lnot Q(x)) \land P(x)) \lor (P(x) \land Q(x)))$ & Distributive from (7) \\
+			\step $\lnot R(x) \rightarrow (P(x) \lor (P(x) \land Q(x)))$ & Absorption from (8) \\
+			\step $\lnot R(x) \rightarrow P(x)$ & Absorption from (9) \\
+			\step $\forall x(\lnot R(x) \rightarrow P(x))$ & UG from (10) \\
+		\end{proof}
+	\end{center}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+\section{1.7 Introduction to Proofs}
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	Prove that if $n$ is a perfect square, then $n + 2$ is not a perfect square.
+\end{tcolorbox}
+\begin{Sol}[]
+	If $n + 2$ is not a perfect square, supposed there exists integers $s^2=n$ and $t^2=n+2$, then we have $t^2 - s^2 = (t+s)(t-s)=2$. Because the factor of 2 is 1 and 2, $s+t = 2$ and $s-t=1$. We can not find such s and t. Therefore $n + 2$ is not a perfect square.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 12}]
+	Prove or disprove that the product of a nonzero rational number and an irrational number is irrational.
+\end{tcolorbox}
+\begin{Sol}[]
+	This is true. Suppose that $a/b$ is a nonzero rational number and that $x$ is an irrational number. Suppose that $xa/b$ were rational and it equals to $c/d$. Since $a/b \neq 0$, we know that $ a\neq 0$, so $b/a$ is also a rational number. Then we have $(xa/b)*(b/a)=(cb/ad) =x$, so $x$ is rational number, a contradion. Therefore, the product of a nonzero rational number and an irrational number is irrational.
+\end{Sol}
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 18}]
+	Prove that if $m$ and $n$ are integers and $mn$ is even, then $m$ is even or $n$ is even
+\end{tcolorbox}
+\begin{Sol}[]
+	Because $nm$ is even, one of factors of $nm$ is 2. This factor is only from $n$ or $m$ because $nm$ is equals to $n$ multyply $m$. Therefore either $n$ or $m$ is even. 
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Show that these three statements are equivalent, where aand $b$ are real numbers: (i) $a$ is less than $b$, (ii) the averageof $a$ and $b$ is greater than $a$, and (iii) the average of $a$ andb is less than $b$.
+\end{tcolorbox}
+\begin{Sol}[]
+	For (i) we can write$a<b$. For (ii) we can write$(a+b)/2>a$, which equivalent to $a+b>2a$. For (iii) we can write$(a+b)/2<b$, which equivalent to $a+b<2b$. These equations are all equivalent to $a<b$.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage 
+
+\section{1.8 Proof Methods and Strategy}
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 2}]
+	Use a proof by cases to show that 10 is not the square of apositive integer. [Hint: Consider two cases: (i) $1 \leq x \leq 3$,(ii) $x \geq 4.$]
+\end{tcolorbox}
+\begin{Sol}[]
+	Suppose there exists an integer $t$ such that $t^2=10$. Because $10 \geq 9$ and $10 \leq 16$, we have $3 < t < 4$. There is not an integer between 3 and 4. Therefore, 10 is not the square of a
+	positive integer.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 6}]
+	Use a proof by cases to show that $min(a, min(b, c)) = min(min(a, b), c)$ whenever a, b, and c are real numbers.
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{itemize}
+		\item If a is smallest, then $a<min(b,c)$ and  $a<b \land a<c$, \\ so $min(a, min(b, c)) = min(min(a, b), c) = a$
+		\item If b is smallest, then $b<c \land a>b$ and  $a>b \land b<c$, \\ so $min(a, min(b, c)) = min(min(a, b), c) = b$
+		\item If c is smallest, then $b>c \land a>c$ and  $c<min(a,b)$, \\ so $min(a, min(b, c)) = min(min(a, b), c) = c$
+	\end{itemize}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 12}]
+	Prove that either $2 \cdot 10^{500} + 15$ or $2 \cdot 10^{500} + 16$ is not a perfect square. Is your proof constructive or nonconstructive?
+\end{tcolorbox}
+\begin{Sol}[]
+	If noth $2 \cdot 10^{500} + 15$ and $2 \cdot 10^{500} + 16$ are perfect squares, then we have two integers s and t such that $s^2=2 \cdot 10^{500} + 15$ and $t^2 = 2 \cdot 10^{500} + 16$. And $t^2-s^2=(t+s)(t-s)=(2 \cdot 10^{500} + 16)-(2 \cdot 10^{500} + 15) = 1$. We can not find s and t such that  $(t+s)(t-s)=1$. Therefore either $2 \cdot 10^{500} + 15$ or $2 \cdot 10^{500} + 16$ is not a perfect square. This is constructive proof.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 16}]
+	Prove or disprove that if $a$ and $b$ are rational numbers, then $a^b$ is also rational.
+
+\end{tcolorbox}
+\begin{Sol}[]
+	This is false. One of counterexample is $a=2$ and $b=1/2$, and $a^b=\sqrt 2$ is not rational.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\
+
+%---------------------------------------------------------------------------
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 24}]
+	Use forward reasoning to show that if $x$ is a nonzeroreal number, then $x^2 + 1/x^2 \geq 2$. [Hint: Start with the inequality $(x - 1/x)^2 \geq 0$, which holds for all nonzero realnumbers x.]
+
+\end{tcolorbox}
+\begin{Sol}[]
+	Because one's square is positive, we have $(x - 1/x)^2 =x^2 -2+ 1/x^2\geq 0$. Therefore, $x^2 + 1/x^2 \geq 2$.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+\end{document}

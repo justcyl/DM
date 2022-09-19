@@ -1,0 +1,741 @@
+\documentclass[b4paper,12pt,oneside,article]{memoir}
+\setlrmarginsandblock{3cm}{*}{1}
+\setulmarginsandblock{3cm}{*}{1}
+\setheadfoot{2cm}{\footskip}          
+\checkandfixthelayout[nearest]
+
+
+\setlength{\parindent}{0pt}
+
+\usepackage[utf8]{inputenc} % 显示中文
+\usepackage{fancyhdr} % 导入fancyhdr包
+\usepackage{amsmath, amssymb, bm, mathtools, mathdots}
+
+\pagestyle{fancy}
+% 页眉设置
+\fancyhf{}
+\fancyhead[L]{Yilin Chen}
+\fancyhead[R]{\today}
+\fancyhead[C]{\rightmark}
+% 页脚设置F8
+\fancyfoot[L]{Powered by \LaTeX}
+\fancyfoot[C]{\thepage} % 页码
+\fancyfoot[R]{DM Homework Assignment}
+\renewcommand{\headrulewidth}{4pt} % 分隔线宽度4磅
+\renewcommand{\footrulewidth}{2pt}
+
+\usepackage{newtxtext}
+\usepackage{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+% \usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+%\usepackage{framed} % 实现方框效果
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{shortlst}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{caption}
+\setcounter{secnumdepth}{0}
+
+ %-------------------------
+ \usepackage{tabularx}
+
+ \newcounter{proofstep}
+ \newcommand{\step}{}
+ \newenvironment{proof}
+   {\par
+	\setcounter{proofstep}{0}%
+	\renewcommand{\step}{\refstepcounter{proofstep}\theproofstep. &}%
+	\noindent
+	\begin{tabular}{ @{} r c l @{}}}
+   {\end{tabular}}
+ %-------------------------
+
+\definecolor{formalshade}{rgb}{0.95,0.95,1} % 文本框颜色
+\definecolor{greenshade}{rgb}{0.90,0.99,0.91} % 绿色文本框，竖线颜色设为 Green
+\definecolor{redshade}{rgb}{1.00,0.90,0.90}% 红色文本框，竖线颜色设为 LightCoral
+\definecolor{brownshade}{rgb}{0.99,0.97,0.93} % 莫兰迪棕色，竖线颜色设为 BurlyWood
+
+\newenvironment{formal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{DarkBlue}\vrule width 2pt}%
+{\color{formalshade}\vrule width 4pt}%
+\colorbox{formalshade}%
+}%
+
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}
+\begin{adjustwidth}{}{7pt}%
+\vspace{2pt}\vspace{2pt}%
+}
+{%
+\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\usepackage[framemethod=TikZ]{mdframed}
+
+\newcounter{Sol}[section]
+\renewcommand{\theSol}{\arabic{section}.\arabic{Sol}}
+\newenvironment{Sol}[1][]{
+	\refstepcounter{Sol}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=blue!20]
+			{\strut Solution~\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=blue!20,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+
+\begin{document}
+\chapter*{Chapter 2 Basic Structures: Sets, Functions,
+Sequences, Sums, and Matrices}
+\section{2.1 Sets}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 6}]
+	For each of these pairs of sets, determine whether the first
+    is a subset of the second, the second is a subset of the first,
+    or neither is a subset of the other.
+    \begin{enumerate}[a)]
+        \item the set of people who speak English, the set of people who speak English with an Australian accent
+        \item the set of fruits, the set of citrus fruits
+        \item the set of students studying discrete mathematics, the set of students studying data structures
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item $a\nsubseteq b$
+        \item $a\nsubseteq b$
+        \item $a\nsubseteq b$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 12}]
+	Determine whether these statements are true or False.
+    \begin{enumerate}[a)]
+        \item  $\varnothing  \in  \{\varnothing \} $
+        \item $\varnothing  \in \{\varnothing , \{\varnothing \}\}$
+        \item $\{\varnothing \} \in \{\varnothing \} $
+        \item $\{\varnothing \} \in \{\{\varnothing \}\}$
+        \item $\{\varnothing \} \subset  \{\varnothing , \{\varnothing \}\} $
+        \item $\{\{\varnothing \}\} \subset \{\varnothing , \{\varnothing \}\}$
+        \item $\{\{\varnothing \}\} \subset \{\{\varnothing \}, \{\varnothing \}\}$
+    \end{enumerate}
+    
+    
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item True
+        \item True
+        \item False
+        \item True
+        \item True
+        \item True
+        \item False
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 20}]
+	Find two sets A and B such that $A \in B$ and $A \subseteq B$.
+\end{tcolorbox}
+\begin{Sol}[]
+	$A=\emptyset$ and $B=\{ \emptyset \}$
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 22}]
+	What is the cardinality of each of these sets?
+    \begin{enumerate}[a)]
+        \item $\emptyset $
+        \item $\{\emptyset\}$
+        \item $\{\emptyset, \{\emptyset\}\} $
+        \item $\{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}\}$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 26}]
+	Determine whether each of these sets is the power set of
+    a set, where a and b are distinct elements.
+    \begin{enumerate}[a)]
+        \item $\emptyset $
+        \item $\{\emptyset, \{a\} \} $
+        \item $\{\emptyset, \{a\} , \{\emptyset, a\} \}  $
+        \item $\{\emptyset, \{a\} , \{b\} , \{a, b\} \} $
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item Yes
+        \item Yes
+        \item No
+        \item Yes
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 28}]
+	Show that if $A \subseteq C$ and $B \subseteq D$, then $A \times  B \subseteq C \times  D$
+\end{tcolorbox}
+\begin{Sol}[]
+	For $A \times  B$, supposse a pair $(a,b)$ where $a\in A$ and $b \in B$, since A is a subset of C and B is a subset of D, so $a \in C$ and $b \in D$, Therefore $(a,b) \in C \times D$, and $A \times  B \subseteq C \times  D$.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Suppose that $A \times  B = \emptyset$, where A and B are sets. What
+    can you conclude?
+\end{tcolorbox}
+\begin{Sol}[]
+	$A = \emptyset$ or $b = \emptyset$
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 38}]
+	How many different elements does $A \times B \times C$ have if A
+    has m elements, B has n elements, and C has p elements?
+\end{tcolorbox}
+\begin{Sol}[]
+	$A \times B \times C$ has $mnp$ elements.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+\clearpage
+
+\section{2.2 Set Operations}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	Let $A = \{ a, b, c, d, e\}$ and$ B = \{ a, b, c, d, e, f, g, h\}$. Find
+    \begin{enumerate}[a)]
+        \item $A \cup B. $
+        \item $A \cap B.$
+        \item $A - B. $
+        \item $B - A.$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+	\begin{enumerate}[a)]
+        \item $ \{ a, b, c, d, e, f, g, h\}$
+        \item $ \{ a, b, c, d, e\}$
+        \item $ \emptyset$
+        \item$ \{ f,g,h\}$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 12}]
+	Prove the first absorption law from Table 1 by showing
+    that if A and B are sets, then $A \cup (A \cap B) = A.$
+\end{tcolorbox}
+\begin{Sol}[]
+    Suppose $x \in A $, then $x \in A \cup (A \cap B)$ since $A \cup (A \cap B)$  is a union of $A$ and another set, so $A \cup (A \cap B) \subseteq A$. \  
+    Suppose $x \in A \cup (A \cap B)$, then $x \in A$ or $x \in (A \cap B)$ by the defintion of union,  if $x \in (A \cap B)$ then $x \in A$ by the defintion of intersection. Therefore, $A \cup (A \cap B) = A.$
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 16}]
+	Let A and B be sets. Show that
+    \begin{enumerate}[a)]
+        \item $(A \cap B) \subseteq A. $
+        \item $A \subseteq (A \cup B).$
+        \item $A - B \subseteq A. $
+        \item $A \cap (B - A) = \emptyset.$
+        \item $A \cup (B - A) = A \cup B.$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item If x is in $A \cap B$, then perforce it is in A (by definition of intersection).
+        \item If x is in A, then perforce it is in$ A \cup B$ (by definition of union).
+        \item If x is in $A - B$, then perforce it is in A (by definition of difference).
+        \item If $x \in A$ then $x \in B - A$. Therefore there can be no elements in $A \cap (B - A)$, so $A \cap (B - A) = \emptyset$.
+        \item $A \cup (B - A) = A \cup B.$ means $x \in A$ or $x \in B \ AND\ x\notin A$, which means $x \in A \ OR\ x \in B$. Therefore $A \cup (B - A) = A \cup B.$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 26}]
+	Let A, B, and C be sets. Show that $(A - B) - C =(A - C) - (B - C).$
+\end{tcolorbox}
+\begin{Sol}[]
+    Suppose x is in the left side, then x must be in A but in neither B nor C . Thus $x \in A - C $,
+    but $x \notin B - C$ , so x is in the right-hand side. \\
+    Suppose x is in the right side, then x must be in $A-C$ but not in $B-C$ . Thus $x \in A-C $,
+    but $x \notin B$ , so x is in the left-hand side. 
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Can you conclude that A = B if A, B, and C are sets such that
+    \begin{enumerate}[a)]
+        \item $A \cup C = B \cup C? $
+        \item $A \cap C = B \cap C?$
+        \item $A \cup C = B \cup C and A \cap C = B \cap C?$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item No
+        \item No
+        \item Yes,By symmetry, it suffices to prove that $A \subseteq B$. Suppose that $x \in A$. There are two cases. If $x \in C$ , then $x \in A \cap C = B \cap C$ , whichforces $ \in B$. On the other hand, if $x \notin C $, then because $x \in A \cup C = B \cup C$ , we must have $x \in B$.        
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 56}]
+	Find $\bigcup^{\infty }_{i=1} A_i$ and $\bigcap^{\infty }_{i=1} A_i$if for every positive integer i,
+
+    \begin{enumerate}[a)]
+        \item $A_i = {i, i + 1, i + 2, …}.$
+        \item $A_i = {0, i}.$
+        \item $A_i = (0, i)$, that is, the set of real numbers x with $0 < x < i.$
+        \item $A_i = (i, ∞)$, that is, the set of real numbers x with $x > i.$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\bigcup^{\infty }_{i=1} A_i=\{1,2,3,4,...\}$ and $\bigcap^{\infty }_{i=1} A_i=\emptyset$ since Every positive integer is excluded from at least one of the sets
+        \item $\bigcup^{\infty }_{i=1} A_i=\{0,1,2,3,4,...\}$ and $\bigcap^{\infty }_{i=1} A_i=\{0\}$ 
+        \item $\bigcup^{\infty }_{i=1} A_i=\mathbb{R} ^+$ and $\bigcap^{\infty }_{i=1} A_i=A_1$ 
+        \item $\bigcup^{\infty }_{i=1} A_i=A_1$ and $\bigcap^{\infty }_{i=1} A_i=\emptyset$ 
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 58}]
+	Suppose that the universal set is $U = \{1, 2, 3, 4,5, 6, 7, 8, 9, 10\}$. Express each of these sets with bitstrings where the ith bit in the string is 1 if i is in theset and 0 otherwise.
+
+
+    \begin{enumerate}[a)]
+        \item $\{3, 4, 5\}$
+        \item $\{1, 3, 6, 10\}$
+        \item $\{2, 3, 4, 7, 8, 9\}$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item 0011100000
+        \item 1010010001
+        \item 0111001110
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{2.1 Functions}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 2}]
+	Determine whether \textit{f} is a function from $\mathbb{Z} $ to $\mathbb{R} $ if
+    \begin{enumerate}[a)]
+        \item $f(n) =\pm n.$
+        \item $f(n) =\sqrt{n^2 + 1}.$
+        \item $f(n) = 1/(n^2 - 4).$
+    \end{enumerate}
+    
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item No. Because $f(n)$ is not an assignment of exactly one element of $\mathbb{R} $ to each element of $\mathbb{Z} $.
+        \item Yes.
+        \item No. Because $f(2)$ and $f(-2)$ are not defined.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	Find the domain and range of these functions. Note that
+    in each case, to find the domain, determine the set of elements assigned values by the function.
+    \begin{enumerate}[a)]
+        \item the function that assigns to each nonnegative integer its last digit
+        \item the function that assigns the next largest integer to a positive integer
+        \item the function that assigns to a bit string the number of one bits in the string
+        \item the function that assigns to a bit string the number of bits in the string
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item The domain is the set of nonnegative integers, and the range is the set of digits ( 0 through 9 ).
+        \item The domain is the set of positive integers, and the range is the set of positive integers greater than 1.
+        \item The domain is the set of strings, and the range is the set of nonnegative integers.
+        \item The domain is the set of strings, and the range is the set of nonnegative integers.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 8}]
+	Find these values.
+
+    \begin{enumerate}[a)]
+        \item  $\lfloor 1.1\rfloor $
+        \item $\lceil  1.1\rceil  $
+        \item $\lfloor -0.1\rfloor $
+        \item $\lceil  -0.1\rceil  $
+        \item $\lceil  2.99\rceil  $
+        \item $\lceil  -2.99\rceil  $
+        \item $\lfloor \frac{1}{2}+\lceil  \frac{1}{2}\rceil \rfloor $
+        \item $\lceil \lfloor  \frac{1}{2}\rfloor+\lceil  \frac{1}{2}\rceil + \frac{1}{2}\rceil $
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item 1
+        \item 2
+        \item -1
+        \item 0
+        \item 3
+        \item -2
+        \item 1
+        \item 2
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------\
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 16}]
+	Consider these functions from the set of students in a discrete mathematics class. Under what conditions is the function one-to-one if it assigns to a student his or her
+    \begin{enumerate}[a)]
+        \item mobile phone number.
+        \item student identification number.
+        \item final grade in the class.
+        \item home town.
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item This is normally the one-to-one function.
+        \item This is  one-to-one function.
+        \item This is normally not the one-to-one function since it is likely that two students have final grade in the class.
+        \item This is normally not the one-to-one function since it is likely that two students came from same home towm.
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 30}]
+	Let $S = \{ -1, 0, 2, 4, 7\} $. Find $f(S)$ if
+    
+    \begin{enumerate}[a)]
+        \item $f(x) = 1. $
+        \item $f(x) = 2x + 1.$
+        \item $f(x) = \lceil x/5\rceil. $
+        \item $f(x)=\lfloor(x^2 + 1)∕3\rfloor.$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $f(S) = \{ 1\}. $
+        \item $f(x) = \{ -1,1,5,9,15\}.$
+        \item $f(x) = \{ 0,1,2\}. $
+        \item $f(x)=\{ 0,1,5,16\}.$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 44}]
+	Let f be the function from $\mathbb{R}$ to $\mathbb{R}$ defined by $f(x) = x^2$. Find
+    
+    \begin{enumerate}[a)]
+        \item $f^{ -1}({1}). $
+        \item $f^{ -1}({x | 0 < x < 1}).$
+        \item $f^{ -1}({x | x > 4}).$
+    \end{enumerate}
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $f^{ -1}({1}) = \{ 1,-1\}. $
+        \item $f^{ -1}({x | 0 < x < 1})=\{ x | 0 < x < 1 \ \lor \ -1<x<0\}.$
+        \item $f^{ -1}({x | x > 4})=\{ x | x >2 \ \lor \ x < -2 \}.$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 66}]
+	Draw the graph of the function $f(x) = \lfloor x/2 \rfloor$ from $\mathbb{R}$ to $\mathbb{R}$.
+\end{tcolorbox}
+\begin{Sol}[]
+    \includegraphics*[scale=0.6]{fun.png}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 78}]
+	Let x be a real number. Show that $\lfloor 3x\rfloor  =\lfloor x\rfloor + \lfloor x + \frac{1}{3} \rfloor  + \lfloor x + \frac{2}{3}\rfloor $.
+\end{tcolorbox}
+\begin{Sol}[]
+    Suppose $p \leq x<p+1$, then $\lfloor x\rfloor=p$.
+    \begin{itemize}
+        \item If $p\leq x < p+\frac{1}{3}$, then $\lfloor 3x\rfloor=3p$, $\lfloor x\rfloor + \lfloor x + \frac{1}{3} \rfloor  + \lfloor x + \frac{2}{3}\rfloor =p+p+p=3p$
+        \item If $p+\frac{1}{3}\leq x < p+\frac{2}{3}$, then $\lfloor 3x\rfloor=3p+1$, $\lfloor x\rfloor + \lfloor x + \frac{1}{3} \rfloor  + \lfloor x + \frac{2}{3}\rfloor =p+p+(p+1)=3p+1$
+        \item If $p+\frac{2}{3}\leq x < p+1$, then $\lfloor 3x\rfloor=3p+2$, $\lfloor x\rfloor + \lfloor x + \frac{1}{3} \rfloor  + \lfloor x + \frac{2}{3}\rfloor =p+(p+1)+(p+1)=3p+2$
+    \end{itemize}
+    Therefore, $\lfloor 3x\rfloor  =\lfloor x\rfloor + \lfloor x + \frac{1}{3} \rfloor  + \lfloor x + \frac{2}{3}\rfloor $.
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+\section{2.4 Sequences and Summations}
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 4}]
+	What are the terms $a_0, a_1, a_2$, and $a_3$ of the sequence $\{ a_n \}$,where an equals
+    \begin{enumerate}[a)]
+        \item $(-2)^n$? 
+        \item $3$?
+        \item $7 + 4^n$? 
+        \item $2^n + (-2)^n$?
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $a_0=1, a_1=-2, a_2=4,a_3=-8$
+        \item $a_0=3, a_1=3, a_2=3,a_3=3$
+        \item $a_0=8, a_1=11, a_2=23,a_3=71$
+        \item $a_0=2, a_1=0, a_2=8,a_3=0$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 10}]
+	Find the first six terms of the sequence defined by each of these recurrence relations and initial conditions.
+
+    \begin{enumerate}[a)]
+        \item $a_n = -2a_{n-1}, a_0 = -1$
+        \item $a_n = a_{n-1} - a_{n-2}, a_0 = 2, a_1 = -1$
+        \item $a_n = 3a^2_{n-1}, a_0 = 1$
+        \item $a_n = na_{n-1} + a^2_{n-2}, a_0 = -1, a_1 = 0$
+        \item $a_n = a_{n-1} - a_{n-2} + a_{n-3}, a_0 = 1, a_1 = 1, a_2 = 2$
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $a_0=-1, a_1=2, a_2=-4,a_3=8,a_4=-16,a_5=32$
+        \item $a_0=2, a_1=-1, a_2=-3,a_3=-2,a_4=1,a_5=3$
+        \item $a_0=1, a_1=3, a_2=27,a_3=2187,a_4=14348907,a_5=617673396283947$
+        \item $a_0=1, a_1=1, a_2=2,a_3=2,a_4=1,a_5=1$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 20}]
+	Assume that the population of the world in 2017 was 7.6 billion and is growing at the rate of 1.12\% a year.
+    \begin{enumerate}[a)]
+        \item Set up a recurrence relation for the population of the world $n$ years after 2017.
+        \item Find an explicit formula for the population of the world n years after 2017.
+        \item What will the population of the world be in 2050?
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    Suppose the population of the world n years after 2017 is $a_n$ (billions).
+    \begin{enumerate}[a)]
+        \item $a_n=(100+1.12)\% \cdot a_{n-1}, a_0=7.6$
+        \item $a_n=7.6\cdot[(100+1.12)\%]^n$
+        \item $a_{33} \approx 10.98 $
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 24}]
+	
+    \begin{enumerate}[a)]
+        \item Find a recurrence relation for the balance $B(k)$ owed at the end of k months on a loan at a rate of $r$ if a payment $P$ is made on the loan each month. [\textit{Hint}: Express $B(k)$ in terms of $B(k -1)$ and note that the monthly interest rate is $r/12$.]
+        \item Determine what the monthly payment $P$ should be so that the loan is paid off after $T$ months.
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $B(k)=(1+r/12)B(k-1)-P$
+        \item From recurrence relation we can know the explicit formula is $B(k)-12P/r=(1+r/12)^k(B(0)-12P/r)$\\
+        Then we can solve that $T=\log_{1+r/12}(\frac{-12p}{B(0)r-12p})$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+
+\clearpage
+
+%---------------------------------------------------------------------------
+
+\begin{tcolorbox}
+	[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Question 32}]
+	Find the value of each of these sums.
+
+    \begin{enumerate}[a)]
+        \item $\Sigma_{j=0}^{8}=(-1+(-1)^j)$
+        \item $\Sigma_{j=0}^{8}=(3^j-2^j)$
+        \item $\Sigma_{j=0}^{8}=(2 \cdot 3^j+3 \cdot2^j)$
+        \item $\Sigma_{j=0}^{8}=(2^{j+1}-2{^j})$
+    \end{enumerate}
+
+\end{tcolorbox}
+\begin{Sol}[]
+    \begin{enumerate}[a)]
+        \item $\Sigma_{j=0}^{8}=(-1+(-1)^j)=0$
+        \item $\Sigma_{j=0}^{8}=(3^j-2^j)=9330$
+        \item $\Sigma_{j=0}^{8}=(2 \cdot 3^j+3 \cdot2^j)=21215$
+        \item $\Sigma_{j=0}^{8}=(2^{j+1}-2{^j})=511$
+    \end{enumerate}
+\end{Sol}
+
+%---------------------------------------------------------------------------
+\end{document}
